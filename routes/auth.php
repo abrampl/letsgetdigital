@@ -19,7 +19,7 @@ Route::middleware(['guest', 'firewall.all'])->group(function () {
 
     Route::post('register', RegisterAction::class);
 
-    //TODO: remove all function at the bottom
+    //TODO: remove all function from this point
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
@@ -38,7 +38,7 @@ Route::middleware(['guest', 'firewall.all'])->group(function () {
                 ->name('password.update');
 });
 
-//TODO: remove all routes at the bottom
+//TODO: remove this route group
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
