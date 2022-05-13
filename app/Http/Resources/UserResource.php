@@ -25,15 +25,15 @@ class UserResource extends JsonResource
             'house_number' => $this->house_number,
             'email' => $this->email,
             'phone' => $this->phone,
-            'geo' => [
-                'street' => $this->geo ? $this->geo->street_name : null,
-                'city' => $this->geo ? $this->geo->city : null,
-                'province' => $this->geo && $this->geo->administrative_areas ? $this->geo->administrative_areas[0]->name : null,
+            'geo' => $this->when($this->geo, [
+                'street' => $this->geo->street_name,
+                'city' => $this->geo->city,
+                'province' => $this->when($this->geo->administrative_areas, $this->geo->administrative_areas[0]->name),
                 'location' => [
-                    'latitude' => $this->geo ? $this->geo->centroid->latitude : null,
-                    'longitude' => $this->geo ? $this->geo->centroid->longitude : null,
+                    'latitude' => $this->geo->centroid->latitude,
+                    'longitude' => $this->geo->centroid->longitude,
                 ],
-            ],
+            ]),
         ];
     }
 }
