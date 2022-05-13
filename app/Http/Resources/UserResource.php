@@ -25,7 +25,7 @@ class UserResource extends JsonResource
             'house_number' => $this->house_number,
             'email' => $this->email,
             'phone' => $this->phone,
-            'geo' => $this->when($this->geo, [
+            'geo' => $this->mergeWhen($this->geo, [
                 'street' => $this->geo->street_name,
                 'city' => $this->geo->city,
                 'province' => $this->when($this->geo->administrative_areas, $this->geo->administrative_areas[0]->name),
